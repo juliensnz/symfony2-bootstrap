@@ -20,7 +20,7 @@ else
 fi
 
 echo "Installing composer [START]"
-curl -s https://getcomposer.org/installer | php > /dev/null
+curl -s https://getcomposer.org/installer | php
 echo "Installing composer [DONE]"
 
 if $install ; then
@@ -30,11 +30,11 @@ if $install ; then
 fi
 
 echo "Installing vendors [START]"
-php composer.phar install -d $1 > /dev/null
+php composer.phar install -d $1
 echo "Installing vendors [DONE]"
 
 echo "Updating vendors [START]"
-php composer.phar update -d $1 > /dev/null
+php composer.phar update -d $1
 echo "Updating vendors [DONE]"
 
 echo "Adding tools [START]"
