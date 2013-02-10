@@ -10,17 +10,23 @@ if [ ! $# == 1 ]; then
   exit
 fi
 
+if [ ! -d "$1" ]; then
+  install=true
+else
+  read -p "$0 is about to update yout tools. are you shure (y/n) ?"
+  echo $REPLY
+  [ "$REPLY" != "n" ] || exit
+  install=false
+fi
+
 echo "Installing composer [START]"
 curl -s https://getcomposer.org/installer | php > /dev/null
 echo "Installing composer [DONE]"
 
-if [ ! -d "$1" ]; then
-  install=true
+if $install ; then
   echo "Installing Symfony 2.1.x-dev [START]"
   php composer.phar create-project symfony/framework-standard-edition ./$1 2.1.x-dev --no-interaction > /dev/null
   echo "Installing Symfony 2.1.x-dev [DONE]"
-else
-  install=false
 fi
 
 echo "Installing vendors [START]"
@@ -41,7 +47,7 @@ sed -i "" "s/YOURAPPNAME/$1/" ./$1/tools/vagrant/cookbooks/main/templates/defaul
 echo "Adding tools [DONE]"
 
 
-if [ install ]; then
+if $install; then
   echo -e "\nInstallation complete !"
   echo "Don't forget to add your project to your hosts file"
   command="\n1.2.3.4\t$1.vag"
@@ -51,5 +57,5 @@ if [ install ]; then
   echo -e "dscacheutil -flushcache"
   echo -e "exit\n"
 else
-  echo -e "\nUdapte complete !"
+  echo -e "\nUdapte complete !\n"
 fi
