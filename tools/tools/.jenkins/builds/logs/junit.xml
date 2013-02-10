@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Project Test Suite" tests="3" assertions="12" failures="0" errors="0" time="20.699476">
+    <testsuite name="Guest\AppBundle\Tests\Controller\DefaultControllerTest" file="/var/www/guestapp/src/Guest/AppBundle/Tests/Controller/DefaultControllerTest.php" namespace="Guest\AppBundle\Tests\Controller" fullPackage="Guest.AppBundle.Tests.Controller" tests="1" assertions="1" failures="0" errors="0" time="10.214329">
+      <testcase name="testIndex" class="Guest\AppBundle\Tests\Controller\DefaultControllerTest" file="/var/www/guestapp/src/Guest/AppBundle/Tests/Controller/DefaultControllerTest.php" line="18" assertions="1" time="10.214329"/>
+    </testsuite>
+    <testsuite name="Guest\AppBundle\Tests\Controller\RegisterCompanyControllerTest" file="/var/www/guestapp/src/Guest/AppBundle/Tests/Controller/RegistrationCompanyControllerTest.php" namespace="Guest\AppBundle\Tests\Controller" fullPackage="Guest.AppBundle.Tests.Controller" tests="1" assertions="7" failures="0" errors="0" time="6.275680">
+      <testcase name="testRegister" class="Guest\AppBundle\Tests\Controller\RegisterCompanyControllerTest" file="/var/www/guestapp/src/Guest/AppBundle/Tests/Controller/RegistrationCompanyControllerTest.php" line="18" assertions="7" time="6.275680"/>
+    </testsuite>
+    <testsuite name="Guest\AppBundle\Tests\Controller\SecurityControllerTest" file="/var/www/guestapp/src/Guest/AppBundle/Tests/Controller/SecurityControllerTest.php" namespace="Guest\AppBundle\Tests\Controller" fullPackage="Guest.AppBundle.Tests.Controller" tests="1" assertions="4" failures="0" errors="0" time="4.209467">
+      <testcase name="testIndex" class="Guest\AppBundle\Tests\Controller\SecurityControllerTest" file="/var/www/guestapp/src/Guest/AppBundle/Tests/Controller/SecurityControllerTest.php" line="18" assertions="4" time="4.209467"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

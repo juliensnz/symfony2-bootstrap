@@ -1,0 +1,74 @@
+# All Vagrant configuration is done here. The most common configuration
+# options are documented and commented below. For a complete reference,
+# please see the online documentation at vagrantup.com.
+
+Vagrant::Config.run do |config|
+  config.vm.box = "precise64"
+  config.vm.boot_mode = :headless
+
+  config.vm.network :hostonly, "1.2.3.4"
+  
+  config.vm.host_name = "manpower2.vagrant"
+
+  config.vm.share_folder "project-name", "/var/www/project-name", "project-name"
+
+  config.vm.customize ["modifyvm", :id, "--memory", 512]
+
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = "cookbooks"
+
+    chef.json = {
+      "main" => {
+        "hosts" => [
+          "127.0.0.1 localhost"
+        ],
+        "environment" => [
+          "SOMEKEY=somevar"
+        ],
+        "apache2" => {
+          "vhost" => [{
+            "name" => "project-name",
+            "server_name" => "project-name.vagrant",
+            "docroot" => "/var/www/project-name/web",
+            "dirindex" => "app.php",
+            "template" => "vhost.conf.erb"
+          }]
+        },
+        "database" => ["manpower2"],
+        "dbuser" => [
+          {
+            "name" => "root",
+            "password" => "root",
+            "host" => "%",
+            "privileges" => [:all]
+          },
+         {
+           "name" => "manpower2",
+          "password" => "manpower2",
+            "host" => "localhost",
+            "database_name" => "manpower2",
+            "privileges" => [:all]
+          }
+        ],
+#        "buildscript" => [
+#          "python /var/www/project/bin/build.py"
+#        ],
+#        "s3cmd" => {
+#          "access_key" => "YOUR_AWS_ACCESS_KEY",
+#          "secret_key" => "YOUR_AWS_SECRET_KEY"
+#        },
+        "mysql" => true,
+#        "python" => true,
+#        "java" => true,
+#        "mongodb" => true,
+#        "redis" => true,
+#        "coffeescript" => true,
+      },
+      "mysql" => {
+        "server_root_password" => "root"
+      }
+    }
+
+    chef.add_recipe("main")
+  end
+end

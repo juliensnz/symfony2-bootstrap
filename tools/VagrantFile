@@ -1,0 +1,138 @@
+# All Vagrant configuration is done here. The most common configuration
+# options are documented and commented below. For a complete reference,
+# please see the online documentation at vagrantup.com.
+
+APPNAME = "YOURAPPNAME"
+
+Vagrant::Config.run do |config|
+
+  # We use the lucid box
+  config.vm.box = "lucid64"
+  config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
+  #No gui
+  config.vm.boot_mode = :headless
+
+  # Vm's IP address
+  config.vm.network :hostonly, "1.2.3.4"
+
+  # The vm's host name (has to be setup in /etc/hosts)
+  config.vm.host_name = APPNAME + ".vag"
+
+  # Our shared folder in the vm
+  config.vm.share_folder("v-root", "/var/www/" + APPNAME, ".", :nfs => true)
+
+  # We will work on a 1024 mb ram machine
+  config.vm.customize ["modifyvm", :id, "--memory", 1024]
+
+  # Chef config
+  config.vm.provision :chef_solo do |chef|
+    # URI to cookbooks
+    chef.cookbooks_path = "tools/vagrant/cookbooks"
+
+    # Our config in JSON : (go below to find availables cookbooks)
+    chef.json = {
+      "main" => {
+        "hosts" => [
+          "127.0.0.1 localhost"
+        ],
+        "apache2" => {
+          "vhost" => [{
+            "name" => APPNAME,
+            "server_name" => APPNAME + ".vag",
+            "docroot" => "/var/www/" + APPNAME + "/web",
+            "dirindex" => "app.php",
+            "template" => "vhost.conf.erb"
+          }]
+        },
+        "database" => [APPNAME],
+        "dbuser" => [
+          {
+            "name" => "root",
+            "password" => "root",
+            "host" => "%",
+            "privileges" => [:all]
+          },
+          {
+            "name" => APPNAME,
+            "password" => APPNAME,
+            "host" => "localhost",
+            "database_name" => APPNAME,
+            "privileges" => [:all]
+          }
+        ],
+        "mysql" => true,
+        "nodejs" => true,
+      },
+      "mysql" => {
+        "server_root_password" => "root"
+      }
+    }
+    # Available chef cookbooks :
+    # To add a module to your vagrant vm machine, add it to the
+    # json config.
+    #   chef.json = {
+    #   "main" => {
+    #     "sqlite" => [
+    #       "recipe[php::module_sqlite3.rb]"
+    #     ],
+    #     "hosts" => [
+    #       "127.0.0.1 localhost"
+    #     ],
+    #     "environment" => [
+    #       "SOMEKEY=somevar"
+    #     ],
+    #     "apache2" => {
+    #       "vhost" => [{
+    #         "name" => "YOURAPPNAME",
+    #         "server_name" => "YOURAPPNAME.vag",
+    #         "docroot" => "/var/www/YOURAPPNAME/web",
+    #         "dirindex" => "app.php",
+    #         "template" => "vhost.conf.erb"
+    #       }]
+    #     },
+    #     "database" => ["YOURAPPNAME"],
+    #     "dbuser" => [
+    #       {
+    #         "name" => "root",
+    #         "password" => "root",
+    #         "host" => "%",
+    #         "privileges" => [:all]
+    #       },
+    #      {
+    #        "name" => "YOURAPPNAME",
+    #       "password" => "YOURAPPNAME",
+    #         "host" => "localhost",
+    #         "database_name" => "YOURAPPNAME",
+    #         "privileges" => [:all]
+    #       }
+    #     ],
+    #     "buildscript" => [
+    #       "python /var/www/project/bin/build.py"
+    #     ],
+    #     "s3cmd" => {
+    #       "access_key" => "YOUR_AWS_ACCESS_KEY",
+    #       "secret_key" => "YOUR_AWS_SECRET_KEY"
+    #     },
+    #     "mysql" => true,
+    #     "nodejs" => true,
+    #     "phpunit" => true,
+    #     "python" => true,
+    #     "java" => true,
+    #     "mongodb" => true,
+    #     "redis" => true,
+    #     "coffeescript" => true,
+    #   },
+    #   "mysql" => {
+    #     "server_root_password" => "root"
+    #   }
+    # }
+
+    chef.add_recipe("main")
+  end
+
+  config.vm.provision :shell, :inline => "npm install -g less"
+  config.vm.provision :shell, :inline => "pear config-set auto_discover 1"
+  config.vm.provision :shell, :inline => "pear install pear.phpunit.de/PHPUnit"
+  config.vm.provision :shell, :inline => "echo 'cd /var/www/" + APPNAME + "' >> /home/vagrant/.bash_profile"
+
+end
