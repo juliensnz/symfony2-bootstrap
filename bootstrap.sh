@@ -14,9 +14,14 @@ echo "Installing composer [START]"
 curl -s https://getcomposer.org/installer | php > /dev/null
 echo "Installing composer [DONE]"
 
-echo "Installing Symfony 2.1.x-dev [START]"
-php composer.phar create-project symfony/framework-standard-edition ./$1 2.1.x-dev --no-interaction > /dev/null
-echo "Installing Symfony 2.1.x-dev [DONE]"
+if [ ! -d "$1" ]; then
+  install=true
+  echo "Installing Symfony 2.1.x-dev [START]"
+  php composer.phar create-project symfony/framework-standard-edition ./$1 2.1.x-dev --no-interaction > /dev/null
+  echo "Installing Symfony 2.1.x-dev [DONE]"
+else
+  install=false
+fi
 
 echo "Installing vendors [START]"
 php composer.phar install -d $1 > /dev/null
@@ -35,11 +40,16 @@ sed -i "" "s/YOURAPPNAME/$1/" ./$1/tools/phpunit.xml
 sed -i "" "s/YOURAPPNAME/$1/" ./$1/tools/vagrant/cookbooks/main/templates/default/bash_profile.erb
 echo "Adding tools [DONE]"
 
-echo -e "\nInstallation complete !"
-echo "Don't forget to add your project to your hosts file"
-command="\n1.2.3.4\t$1.vag"
-echo -e "with the following commands : \n"
-echo    "sudo su"
-echo    "echo \"$command\" >> /etc/hosts"
-echo -e "dscacheutil -flushcache"
-echo -e "exit\n"
+
+if [ install ]; then
+  echo -e "\nInstallation complete !"
+  echo "Don't forget to add your project to your hosts file"
+  command="\n1.2.3.4\t$1.vag"
+  echo -e "with the following commands : \n"
+  echo    "sudo su"
+  echo    "echo \"$command\" >> /etc/hosts"
+  echo -e "dscacheutil -flushcache"
+  echo -e "exit\n"
+else
+  echo -e "\nUdapte complete !"
+fi
