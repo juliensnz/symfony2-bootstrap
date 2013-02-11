@@ -48,8 +48,8 @@ Vagrant::Config.run do |config|
         "dbuser" => [
           {
             "name" => "root",
-            "password" => "",
-            "host" => "%",
+            "password" => "root",
+            "host" => "localhost",
             "privileges" => [:all]
           },
           {
