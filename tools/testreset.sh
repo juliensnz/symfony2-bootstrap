@@ -14,4 +14,4 @@ php app/console doctrine:database:drop --env=test --force
 php app/console doctrine:database:create --env=test
 php app/console doctrine:schema:create --env=test
 
-php app/console doctrine:fixtures:load --no-interaction
+php app/console doctrine:fixtures:load --env=test --no-interaction
