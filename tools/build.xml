@@ -82,6 +82,7 @@
     <target name="phpunit">
         <exec logoutput="true" dir="${project.basedir}" command="curl -s https://getcomposer.org/installer | php" escape="false" />
         <exec logoutput="true" dir="${project.basedir}" command="php composer.phar update" escape="false" />
+        <exec logoutput="true" dir="${project.basedir}" command="./tools/jenkins/beforetest.sh " escape="false" />
         <exec logoutput="true" dir="${project.basedir}" command="./testreset.sh" escape="false" />
         <exec logoutput="true" dir="${project.basedir}/tools" command="phpunit" escape="false" />
     </target>
