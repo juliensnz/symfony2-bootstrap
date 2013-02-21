@@ -22,7 +22,7 @@ Vagrant::Config.run do |config|
   config.vm.share_folder("v-root", "/var/www/" + APPNAME, ".", :nfs => true)
 
   # We will work on a 1024 mb ram machine
-  config.vm.customize ["modifyvm", :id, "--memory", 1024]
+  config.vm.customize ["modifyvm", :id, "--memory", 2048]
 
   # Chef config
   config.vm.provision :chef_solo do |chef|
