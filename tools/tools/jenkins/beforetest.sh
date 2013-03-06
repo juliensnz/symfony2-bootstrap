@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./devreset.sh
+
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
 
 sed -i "s/DBUSER/jenkins/" ./app/config/parameters.yml

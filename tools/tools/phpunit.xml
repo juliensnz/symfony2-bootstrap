@@ -24,6 +24,10 @@
         <ini name="xdebug.max_nesting_level" value="200" />
     </php>
 
+    <php>
+        <server name="KERNEL_DIR" value="/var/lib/jenkins/jobs/YOURAPPNAME/workspace/app/" />
+    </php>
+
     <filter>
         <whitelist>
             <directory>../src</directory>
