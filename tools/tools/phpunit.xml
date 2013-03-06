@@ -24,12 +24,6 @@
         <ini name="xdebug.max_nesting_level" value="200" />
     </php>
 
-    <!--
-    <php>
-        <server name="KERNEL_DIR" value="/path/to/your/app/" />
-    </php>
-    -->
-
     <filter>
         <whitelist>
             <directory>../src</directory>
