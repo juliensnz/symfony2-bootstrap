@@ -13,7 +13,7 @@ fi
 if [ ! -d "$1" ]; then
   install=true
 else
-  read -p "$0 is about to update yout tools. are you shure (y/n) ?"
+  read -p "$0 is about to update yout tools. are you sure (y/n) ?"
   echo $REPLY
   [ "$REPLY" != "n" ] || exit
   install=false
