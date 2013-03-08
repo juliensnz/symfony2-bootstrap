@@ -13,7 +13,7 @@ fi
 if [ ! -d "$1" ]; then
   install=true
 else
-  read -p "$0 is about to update yout tools. are you shure (y/n) ?"
+  read -p "$0 is about to update your tools. are you sure (y/n) ?"
   echo $REPLY
   [ "$REPLY" != "n" ] || exit
   install=false
@@ -24,9 +24,9 @@ curl -s https://getcomposer.org/installer | php
 echo "Installing composer [DONE]"
 
 if $install ; then
-  echo "Installing Symfony 2.1.x-dev [START]"
-  php composer.phar create-project symfony/framework-standard-edition ./$1 2.1.x-dev --no-interaction > /dev/null
-  echo "Installing Symfony 2.1.x-dev [DONE]"
+  echo "Installing Symfony 2.2.x-dev [START]"
+  php composer.phar create-project symfony/framework-standard-edition ./$1 2.2.x-dev --no-interaction > /dev/null
+  echo "Installing Symfony 2.2.x-dev [DONE]"
 fi
 
 echo "Installing vendors [START]"
