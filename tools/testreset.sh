@@ -20,4 +20,4 @@ if [ "$1" == "db" -o "$1" == "" ]; then
     php app/console doctrine:fixtures:load --env=test --no-interaction
 fi
 
-./tools/notifier.py "Cache test" "DONE"
+./tools/notifier.py "Cache test $1" "DONE"

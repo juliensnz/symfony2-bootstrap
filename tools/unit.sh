@@ -2,4 +2,4 @@
 
 phpunit $@
 
-./tools/notifier.py "Tests" "DONE"
+./tools/notifier.py "Tests $@" "DONE"

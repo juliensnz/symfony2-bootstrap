@@ -8,4 +8,4 @@ php ./app/console assets:install --env=prod --no-debug;
 chmod -R 777 ./app/logs/;
 chmod -R 777 ./app/cache/;
 
-./tools/notifier.py "Cache prod" "DONE"
+./tools/notifier.py "Cache prod $1" "DONE"
