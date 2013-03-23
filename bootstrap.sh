@@ -44,6 +44,7 @@ sed -i "" "s/YOURAPPNAME/$1/" ./$1/VagrantFile
 sed -i "" "s/YOURAPPNAME/$1/" ./$1/build.xml
 sed -i "" "s/YOURAPPNAME/$1/" ./$1/tools/phpunit.xml
 sed -i "" "s/YOURAPPNAME/$1/" ./$1/tools/vagrant/cookbooks/main/templates/default/bash_profile.erb
+sed -i "" "s/YOURAPPNAME/$1/" ./$1/tools/vagrant/cookbooks/main/templates/default/hosts.erb
 echo "Adding tools [DONE]"
 
 
