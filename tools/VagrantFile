@@ -134,7 +134,7 @@ Vagrant::Config.run do |config|
   config.vm.provision :shell, :inline => "pear config-set auto_discover 1"
   config.vm.provision :shell, :inline => "pear install pear.phpunit.de/PHPUnit"
   config.vm.provision :shell, :inline => "echo 'cd /var/www/" + APPNAME + "' >> /home/vagrant/.bash_profile"
-  config.vm.provision :shell, :inline => "sudo apt-get install python-pip"
+  config.vm.provision :shell, :inline => "export DEBIAN_FRONTEND=noninteractive; sudo apt-get -q -y install python-pip"
   config.vm.provision :shell, :inline => "sudo pip install gntp"
 
 
