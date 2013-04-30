@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ "$1" == "cache" -o "$1" == "" ]; then
-    rm -rf ./app/logs/;
-    rm -rf ./app/cache/;
+    rm -rf ./app/logs/*;
+    rm -rf ./app/cache/*;
 
     php ./app/console cache:clear --env=dev;
     php ./app/console assetic:dump --env=dev;
@@ -16,7 +16,7 @@ if [ "$1" == "db" -o "$1" == "" ]; then
     php app/console doctrine:database:create --env=dev
     php app/console doctrine:schema:create --env=dev
 
-    php app/console doctrine:fixtures:load --no-interaction
+    php app/console doctrine:fixtures:load --env=dev --no-interaction
 fi
 
-./tools/notifier.py "Cache dev $1" "DONE"
+./tools/notifier.py "Develoment reset $1" "DONE"

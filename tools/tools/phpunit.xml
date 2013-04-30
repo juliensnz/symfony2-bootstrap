@@ -21,7 +21,7 @@
     </testsuites>
 
     <php>
-        <ini name="xdebug.max_nesting_level" value="200" />
+        <ini name="xdebug.max_nesting_level" value="500" />
     </php>
 
     <php>
