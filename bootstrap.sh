@@ -33,10 +33,6 @@ echo "Installing vendors [START]"
 php composer.phar install -d $1
 echo "Installing vendors [DONE]"
 
-echo "Updating vendors [START]"
-php composer.phar update -d $1
-echo "Updating vendors [DONE]"
-
 echo "Adding tools [START]"
 cp -R ./tools/* ./$1
 
